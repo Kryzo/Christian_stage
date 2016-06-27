@@ -1,0 +1,64 @@
+function [cc2,labelinst,la]= loadAllIntoOne(coeffType,Ts)
+%--------------------------------------------------------
+%loadAllIntoOne joins all the files into one matrix of m*n
+%where m is the number of observation(number of files) and n is the
+%number of features, and the labels based on the files containing them
+%type or instrument and save all in a .mat file containing the matrix
+%and two vectors of labels of m*1
+%------------------------------------------------------
+if(nargin==1)
+    T=0.025;
+end
+
+cc2=[];
+labelinst=[];
+labeltype=[];
+numbtype=-1;
+numbinst=0;
+name0=coeffType;
+name4=strcat(coeffType,num2str(Ts*1000),'.mat');
+instrumentstypelist = dir(fullfile(name0)); %load the names of the type of instruments
+dirinstrumenttype = {instrumentstypelist.name}';
+dirinstrumenttype = char(dirinstrumenttype)
+for i=3:size(dirinstrumenttype,1)
+    
+    name1=strtrim(dirinstrumenttype(i,:));
+    instrumentslist = dir(fullfile(name0,name1));%load the names of the  instruments
+    dirinstruments= {instrumentslist.name}';
+    dirinstruments = char(dirinstruments);
+    for k=3:size(dirinstruments,1)
+          numbtype=numbtype+1;
+          numbinst=numbinst+1;
+        name2=strtrim(dirinstruments(k,:));
+        TypeOfPlay = dir(fullfile(name0,name1,name2));%load the names of type of play for each instrument
+        dirTypeOfPlay= {TypeOfPlay.name}';
+        dirTypeOfPlay = char(dirTypeOfPlay);
+        for m=3:size(dirTypeOfPlay,1)
+          numbtype=numbtype+1;
+            name3=strtrim(dirTypeOfPlay(m,:));
+            ccm
+            SavedMFCC=load(fullfile(name0,name1,name2,name3,name4));%open each saved mfcc file
+            sde=SavedMFCC.ccm;
+            sizesde=size(sde);
+            
+                cc2=[cc2 ; sde];
+                
+                name3;
+                %labelnameinst=strpad(name2,80,'post',' ');
+               for l=1:sizesde(1)
+                   labelinst=[labelinst ;numbinst];
+                end
+                
+                
+                for l=1:sizesde(1)
+                    labeltype=[labeltype ;numbtype];
+                end
+            
+        end
+    end
+end
+%labelinst=strtrim(labelinst);
+%labeltype=strtrim(labeltype)
+save([name4 '.mat'], 'cc2','labelinst','labeltype');
+
+

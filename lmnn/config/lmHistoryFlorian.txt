@@ -1,0 +1,8 @@
+lmnn('do', 0,'parallel',1)
+lmnn('do', 0,'parallel',1,'mask',{[2 3 4] 0 0})
+lmnn('report', 't', 'mask',{[1 3 4] [3 4] 1}, 'save', 'mtable')
+lmnn('report', 't', 'mask',{[1 3 4] [3 4] 0}, 'save', 'mtable')
+lmnn('do', 2,'parallel',1,'mask',{[1 4] [7] 0});
+lmnn('do', 2,'parallel',1,'mask',{1 9 4});
+lmnn('do', 2,'parallel',1,'mask',{1 10 5});
+lmnn('do', 2,'parallel',1,'mask',{1 11 5});

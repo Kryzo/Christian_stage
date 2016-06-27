@@ -1,0 +1,3 @@
+features = = = {'mfcc','scattering25','scattering128','scattering250'}
+metrics  = 2 = = {'raw','standarize','stdandmedian','stdandmedianbigv','lmnninst','lmnnmode','lmnninst16','lmnninst16traintest','lmnninst16traintest50'}
+type = 2 = = {'instrument', 'mode','instrument16','instrument162'}
