@@ -30,7 +30,7 @@ machineNames  =  {'pc-adtsi-sunda'}
 % path to input data (usually accessed read only)
 inputPath  = 
 % path to the code repository of the experiment (diamond operator <> do not replace unless you do not want expLanes to fill this field automatically)
-codePath  = /home/florian/explanes/lmnn
+codePath  = /home/florian/Christian_stage/lmnn
 % path to the data repository of the experiment (structured with one directory per step)
 dataPath  = ~/data/experiments/lmnn
 % path to the data repository of the experiment for observation data (same as dataPath if left blank)

@@ -1,8 +1,40 @@
-\begin{tabular}{llccccc} 
-features & metrics & map & map2 & pat5 & pat52 & time \\ 
+\begin{tabular}{lllccc} 
+features & metrics & type & map & pat5 & time \\ 
 \hline 
-mfcc & lmnninst16traintest & 24.54 & 23.24 & 75.14 & 73.90 &   330.16 \\ 
-mfcc & lmnninst16traintest50 & 24.02 & 22.74 & 81.86 & 81.17 &   367.13 \\ 
-scattering250 & lmnninst16traintest & 60.70 & \textbf{\textcolor{red}{31.00}} & 98.44 & 83.05 & \textbf{\textcolor{red}{16529.20}} \\ 
-scattering250 & lmnninst16traintest50 & \textbf{\textcolor{red}{62.98}} & 30.70 & \textbf{\textcolor{red}{99.31}} & \textbf{\textcolor{red}{90.02}} & 10935.84 \\ 
+mfcc & raw & instrument & 20.84 & 83.98 &  58.11 \\ 
+mfcc & raw & mode &  8.24 & 43.95 &  50.72 \\ 
+mfcc & raw & instrument16 & 22.66 & 85.93 &  77.10 \\ 
+mfcc & standarize & instrument & 22.29 & 85.12 &  55.56 \\ 
+mfcc & standarize & mode &  8.78 & 45.19 &  50.74 \\ 
+mfcc & standarize & instrument16 & 24.22 & 86.89 &  67.33 \\ 
+mfcc & stdandmedian & instrument & 20.84 & 83.98 &  53.11 \\ 
+mfcc & stdandmedian & mode &  8.24 & 43.95 &  51.50 \\ 
+mfcc & stdandmedian & instrument16 & 22.66 & 85.93 &  69.98 \\ 
+mfcc & stdandmedianbigv & instrument & 20.84 & 83.98 & 321.36 \\ 
+mfcc & stdandmedianbigv & mode &  8.24 & 43.95 & 320.17 \\ 
+mfcc & stdandmedianbigv & instrument16 & 22.66 & 85.93 & 320.05 \\ 
+scattering128 & raw & instrument & 15.18 & 67.21 & 151.83 \\ 
+scattering128 & raw & mode &  6.66 & 37.38 &  90.65 \\ 
+scattering128 & raw & instrument16 & 16.79 & 70.47 & 139.98 \\ 
+scattering128 & standarize & instrument & 17.68 & 76.06 &  95.39 \\ 
+scattering128 & standarize & mode & 11.07 & 46.97 &  90.61 \\ 
+scattering128 & standarize & instrument16 & 19.48 & 79.67 & 135.98 \\ 
+scattering128 & stdandmedian & instrument & 27.15 & 90.87 &  96.33 \\ 
+scattering128 & stdandmedian & mode & 20.11 & 58.28 &  90.71 \\ 
+scattering128 & stdandmedian & instrument16 & 29.64 & 93.58 & 141.31 \\ 
+scattering128 & stdandmedianbigv & instrument & 25.34 & 88.18 &  55.22 \\ 
+scattering128 & stdandmedianbigv & mode & 16.42 & 54.03 &  52.36 \\ 
+scattering128 & stdandmedianbigv & instrument16 & 28.23 & 91.26 &  54.52 \\ 
+scattering250 & raw & instrument & 14.89 & 67.05 &  98.32 \\ 
+scattering250 & raw & mode &  6.46 & 37.07 &  96.35 \\ 
+scattering250 & raw & instrument16 & 16.49 & 70.40 & 148.96 \\ 
+scattering250 & standarize & instrument & 17.52 & 75.13 &  97.24 \\ 
+scattering250 & standarize & mode & 10.69 & 47.01 &  98.16 \\ 
+scattering250 & standarize & instrument16 & 19.31 & 78.98 & 149.85 \\ 
+scattering250 & stdandmedian & instrument & 28.07 & 90.94 &  97.94 \\ 
+scattering250 & stdandmedian & mode & 20.41 & 57.98 &  94.22 \\ 
+scattering250 & stdandmedian & instrument16 & \textbf{\textcolor{red}{30.73}} & \textbf{\textcolor{red}{93.87}} & 147.08 \\ 
+scattering250 & stdandmedianbigv & instrument & 27.66 & 89.77 & 534.57 \\ 
+scattering250 & stdandmedianbigv & mode & 18.59 & 55.44 & \textbf{\textcolor{red}{554.22}} \\ 
+scattering250 & stdandmedianbigv & instrument16 & 30.58 & 92.74 & 403.87 \\ 
 \end{tabular} 

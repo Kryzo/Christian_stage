@@ -9,5 +9,5 @@ function config = lmReport(config)
 if nargin==0, lmnn('report', 'r'); return; end      
                                                     
 
-config = expExpose(config, 't', 'mask',{[1 4] [8 9 ] 4}, 'save', 'mtable');
+config = expExpose(config, 't', 'mask',{[1 2 3 4] [1 2 3 4] [1 2 3]}, 'save', 'mtable');
 %send_mail_message('gonantesfr','resby6','by inst',fullfile('report','figures','mtable.pdf'));

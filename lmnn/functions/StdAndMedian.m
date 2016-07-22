@@ -1,8 +1,15 @@
-function ccf = ScatStdMedian(ccall)
+function ccf = ScatStdMedian(ccall,per)
 %---------------------------------------------------------------
 %ScatStdMedian remove the variance bigger than 83% of the maximum of the
 %cumulated sum of the variance.
 %-------------------------------------------------------------------------
+ if(nargin<1)
+load ccafter
+ccall=ccafter;
+load groupSol
+ cluster=a.clusters;
+ label=cluster(1,:);
+ end
 
 NumObs=size(ccall,1);
 NumFeat=size(ccall,2);
@@ -24,10 +31,13 @@ sumvar=cumsum(vars);
 %plot(nanstd(cc2)/sum(nanstd(cc2)))
 
 %Keep 83% of the small valriance 
-threshv=((83)/100)*max(sumvar);%replace 83 by 17% to keep the big variance
+
+
+
+threshv=((per)/100)*max(sumvar);%replace 83 by 17% to keep the big variance
 ix=find(sumvar>threshv,1);
 cc=ccall(:,1:ix);%comment and uncomment the following line to keep the big variance
-%cc=ccall(:,ix:NumObs);
+%cc=ccall(:,ix:NumFeat);
 
 
 %x=(x(1,1:ix));%for plotting
@@ -41,6 +51,9 @@ medcc=repmat(eps*median(cc,1),NumObs,1);
 ccf=log1p(cc./medcc);
 
 
+ 
+
+ 
 %calculate the mean average precsion and the precisionAt5
 %dx=pdist(ccf);
 %dx=squareform(dx);

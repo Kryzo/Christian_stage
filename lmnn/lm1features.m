@@ -29,7 +29,10 @@ switch setting.features
     case 'scattering250'
         [ccall,labelinst,labeltype]=SaveAllDattaCoeffplusload('/home/florian/SOL_0.9_HQ','scat',0.25);
                 send_mail_message('gonantesfr','done scat250','done mfcc','/report/figures/mtable.pdf');
-
+    case 'mfccGT'
+    case 'scatteringGT' 
+    case 'mfccGTmult' 
+    case 'scatteringGTmult'
 end
 store.features=ccall;
 store.labelinst=labelinst;
