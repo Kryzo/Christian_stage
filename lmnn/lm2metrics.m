@@ -11,7 +11,7 @@ function [config, store, obs] = lm2metrics(config, setting, data)
 % Date: 01-Jun-2016
 
 % Set behavior for debug mode
-if nargin==0, lmnn('do', 2,'parallel',0,'mask',{[4] [3] 5}); return; else store=[]; obs=[]; end
+if nargin==0, lmnn('do', 2,'parallel',0,'mask',{[6] [18] 5}); return; else store=[]; obs=[]; end
 if(isempty(data))
    
     send_mail_message('gonantesfr','notyet','by inst',fullfile('report','figures','mtable.pdf'));
@@ -32,7 +32,7 @@ switch setting.metrics
     case 'stdandmedian'
         ccafter=ccall;
         if strcmp(setting.features(1:4),'scat')
-            ccafter=StdAndMedian(ccall,13);
+            ccafter=StdAndMedian(ccall,83);
         end
 %%%%%%%%%%%%%%%%%%%%%%%%%%-4-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
     case 'stdandmedianbigv'
@@ -42,9 +42,11 @@ switch setting.metrics
         end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%-5-%%%%%%%%%%%%%%%%%%%%%%%%%%%%          
     case 'lmnninst'
-        ccafter=ccall;
+        
         if strcmp(setting.features(1:4),'scat')
             ccafter=StdAndMedian(ccall,83);
+        else
+             ccafter=featureNormalize(ccall);
         end
         [Linst,Det]=lmnnCG(ccafter',labelinst',5,'maxiter',1000);
         ccafter=(Linst*ccafter')';
@@ -258,7 +260,7 @@ switch setting.metrics
             L=zeros((size(ccafter,2)));
         end
         ccafter2=ccafter;
-         dx2=zeros(length(ccafter2),length(ccafter2));
+       dx2=zeros(size(ccafter,1),size(ccafter,1));
         for nGT=1:32
             
             [label2, res]=removelessthan2(labelinstGT(nGT,:),ccafter);
@@ -294,7 +296,7 @@ switch setting.metrics
             L=zeros((size(ccafter,2)));
         end
         ccafter2=ccafter;
-           dx2=zeros(length(ccafter2),length(ccafter2));
+          dx2=zeros(size(ccafter,1),size(ccafter,1));
         for nGT=1:32
             clusv=0;
           
@@ -370,13 +372,102 @@ switch setting.metrics
          [label2, res]=removelessthan2(M,ccafter);
             [Linst,Det]=lmnnCG(res',label2',5,'maxiter',1000);
             ccafter2=(Linst*ccafter')';
-            
-   case 'stdandmedian'
-        ccafter=ccall;
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%-17-%%%%%%%%%%%%%%%%%%%%%%%%%%%%           
+   case 'Mfcccpm2scat'
+        
         if strcmp(setting.features(1:4),'scat')
             ccafter=StdAndMedian(ccall,13);
-        end         
+        else
+            % Append deltas and double-deltas onto the cepstral vectors
+            del = deltas(ccall');
+            % Double deltas are deltas applied twice with a shorter window
+            ddel = deltas(deltas(ccall',5),5);
+            % Composite, 39-element feature vector, just like we use for speech recognition
+            ccafter = [ccall';del;ddel]';
+        end
+        m=0;
+         for k=1:36
+             for n=(k+1):36
+                 m=m+1;
+                 ccafter(:,(36+m))=ccafter(:,k).*ccafter(:,n);
+             end
+         end
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%-18-%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+         case 'lmnnsumnormdis'
+        load groupSol
+        
+        ccafter=ccall(:,1:(size(ccall,2)-1));
+        save('ccafter.mat','ccafter')
+       
+       cluster=a.clusters;
+        cluster=cluster([1:27,29:33],:);
+        b=0;;
+        for k=1:78
             
+            rep=sum(ccall(:,size(ccall,2))==k);
+            for m=1:rep
+                b=b+1;
+                cluster2(:,b)=cluster(:,k);
+            end
+        end
+        %%%%%%%%%%%%%%%%%%%%%%%%%%
+        labelinstGT=cluster2;
+        L=zeros(12);
+        if strcmp(setting.features(1:4),'scat')
+            ccafter=StdAndMedian(ccall,2);
+            L=zeros((size(ccafter,2)));
+        end
+        ccafter2=ccafter;
+         dx2=zeros(size(ccafter,1),size(ccafter,1));
+        for nGT=1:32
+            
+            [label2, res]=removelessthan2(labelinstGT(nGT,:),ccafter);
+            [Linst,Det]=lmnnCG(res',label2',5,'maxiter',1000);
+            ccafter2=(Linst*ccafter')'
+            dx2=dx2+featureNormalize(squareform(pdist(ccafter2)));
+        end 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%-19-%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+       case 'lmnnpsumnormdis'
+        load groupSol
+        
+        ccafter=ccall(:,1:(size(ccall,2)-1));
+        
+        %%%%%%%%%%%%%%%%%%%ù
+        cluster=a.clusters;
+        cluster=cluster([1:27,29:33],:);
+        b=0;;
+        for k=1:78
+            
+            rep=sum(ccall(:,size(ccall,2))==k);
+            for m=1:rep
+                b=b+1;
+                cluster2(:,b)=cluster(:,k);
+            end
+        end
+        %%%%%%%%%%%%%%%%%%%%%%%%%%
+        labelinstGT=cluster2;
+      
+        L=zeros(12);
+        if strcmp(setting.features(1:4),'scat')
+            ccafter=StdAndMedian(ccall,2);
+            L=zeros((size(ccafter,2)));
+        end
+        ccafter2=ccafter;
+           dx2=zeros(size(ccafter,1),size(ccafter,1));
+        for nGT=1:32
+            clusv=0;
+          
+                for kclus2=1:32
+                    if(nGT~=kclus2)
+                        [accuracyv, classMatching] = accuracy(labelinstGT(nGT,:), labelinstGT(kclus2,:));
+                        clusv=clusv+accuracyv;
+                    end
+                end
+            [label2, res]=removelessthan2(labelinstGT(nGT,:),ccafter);
+            [Linst,Det]=lmnnCG(res',label2',5,'maxiter',1000);
+            ccafter2=(Linst*ccafter')';
+            dx2=dx2+repmat(clusv,size(ccafter,1),size(ccafter,1)).*featureNormalize(squareform(pdist(ccafter2)));
+        end   
 end
 
 dx=squareform(pdist(ccafter));
@@ -386,14 +477,17 @@ switch setting.type
         resinst=rankingMetrics(dx,labelinst);
         obs.map=resinst.meanAveragePrecision*100
         obs.pat5=resinst.precisionAt5*100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%-2-%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     case 'mode'
         resmode=rankingMetrics(dx,labeltype);
         obs.map=resmode.meanAveragePrecision*100
         obs.pat5=resmode.precisionAt5*100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%-3-%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     case 'instrument16'
         resmode=rankingMetrics(dx,labelinst2);
         obs.map=resmode.meanAveragePrecision*100
         obs.pat5=resmode.precisionAt5*100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%-4-%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     case 'instrument162'
         dx2=squareform(pdist(Xtest));
         resmode=rankingMetrics(dx,labelinst2);
@@ -402,6 +496,7 @@ switch setting.type
         obs.pat5=resmode.precisionAt5*100
         obs.map2=resmode2.meanAveragePrecision*100
         obs.pat52=resmode2.precisionAt5*100
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%-5-%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     case 'instrument16GT'
         map=0;
         pat5=0;

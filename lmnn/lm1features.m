@@ -33,6 +33,8 @@ switch setting.features
     case 'scatteringGT' 
     case 'mfccGTmult' 
     case 'scatteringGTmult'
+        
+    
 end
 store.features=ccall;
 store.labelinst=labelinst;
