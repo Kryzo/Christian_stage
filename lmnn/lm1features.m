@@ -11,7 +11,7 @@ function [config, store, obs] = lm1features(config, setting, data)
 % Date: 01-Jun-2016
 
 % Set behavior for debug mode
-if nargin==0, lmnn('do', 1,'parallel',1,'mask',{[2 3 4] 0 0}); return; else store=[]; obs=[]; end
+if nargin==0, lmnn('do', 1,'parallel',1,'mask',[1]); return; else store=[]; obs=[]; end
 
 switch setting.features
     

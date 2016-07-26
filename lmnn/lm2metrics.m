@@ -11,7 +11,7 @@ function [config, store, obs] = lm2metrics(config, setting, data)
 % Date: 01-Jun-2016
 
 % Set behavior for debug mode
-if nargin==0, lmnn('do', 2,'parallel',0,'mask',{[6] [18] 5}); return; else store=[]; obs=[]; end
+if nargin==0, lmnn('do', 2,'parallel',0,'mask',{[1] [7] 3}); return; else store=[]; obs=[]; end
 if(isempty(data))
    
     send_mail_message('gonantesfr','notyet','by inst',fullfile('report','figures','mtable.pdf'));
@@ -56,6 +56,8 @@ switch setting.metrics
         ccafter=ccall;
         if strcmp(setting.features(1:4),'scat')
             ccafter=StdAndMedian(ccall,83);
+            else
+             ccafter=featureNormalize(ccall);
         end
         [labeltype2, res]=removelessthan5(labeltype,ccafter);
         [Ltype,Det]=lmnnCG(res',labeltype2',5,'maxiter',1000)
@@ -67,6 +69,8 @@ switch setting.metrics
         load labelinst2
         if strcmp(setting.features(1:4),'scat')
             ccafter=StdAndMedian(ccall,83);
+            else
+             ccafter=featureNormalize(ccall);
         end
         [Linst,Det]=lmnnCG(ccafter',labelinst2',5,'maxiter',1000);
         ccafter=(Linst*ccafter')';

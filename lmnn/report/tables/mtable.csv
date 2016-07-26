@@ -1,12 +1,4 @@
-features,metrics,map,mapafter,pat5,pat5after,time
-mfccGTmult,lmnnmappingG,\textbf{\textcolor{red}{34.96}},35.38,\textbf{\textcolor{red}{81.28}},81.68,   850.59
-mfccGTmult,lmnnsumGT,\textbf{\textcolor{red}{34.96}},\textbf{\textcolor{red}{36.87}},\textbf{\textcolor{red}{81.28}},82.19,  3860.39
-mfccGTmult,lmnnpsumGT,\textbf{\textcolor{red}{34.96}},36.84,\textbf{\textcolor{red}{81.28}},82.19,  4377.79
-mfccGTmult,lmnnsumdis,\textbf{\textcolor{red}{34.96}},36.11,\textbf{\textcolor{red}{81.28}},82.23,  4332.60
-mfccGTmult,lmnnpsumdis,\textbf{\textcolor{red}{34.96}},36.10,\textbf{\textcolor{red}{81.28}},\textbf{\textcolor{red}{82.25}},  4414.62
-mfccGTmult,lmnnclassmatching,\textbf{\textcolor{red}{34.96}},35.77,\textbf{\textcolor{red}{81.28}},82.00,   572.15
-scatteringGTmult,lmnnmappingG,30.00,30.19,52.39,54.38,  1626.58
-scatteringGTmult,lmnnsumGT,28.90,28.49,49.32,48.89, 11296.23
-scatteringGTmult,lmnnpsumGT,28.90,28.48,49.32,48.87, 12153.01
-scatteringGTmult,lmnnsumdis,32.22,32.70,57.42,63.48, 52099.40
-scatteringGTmult,lmnnclassmatching,32.22,32.50,57.42,64.62,\textbf{\textcolor{red}{147254.13}}
+metrics,map,pat5,time
+raw,20.84,83.98,  58.11
+standarize,22.29,\textbf{\textcolor{red}{85.12}}, 100.13
+lmnninst,\textbf{\textcolor{red}{22.88}},84.49,\textbf{\textcolor{red}{2169.22}}
