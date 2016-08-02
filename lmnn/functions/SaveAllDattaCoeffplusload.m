@@ -85,6 +85,17 @@ for i=3:size1
                             labeltype=[labeltype ;numbtype];
                         end
                     end
+                     if(coeffType=='amel')
+                        ccm=  melSave(wavFileDirectory);
+                        ccall=[ccall;ccm];
+                        sizesde=size(ccm);
+                        for l=1:sizesde(1)
+                            labelinst=[labelinst ;numbinst];
+                        end
+                        for l=1:sizesde(1)
+                            labeltype=[labeltype ;numbtype];
+                        end
+                    end
                     if(coeffType=='inst')
                        
                       

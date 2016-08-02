@@ -1,3 +1,3 @@
-features = = = {'mfcc','scattering25','scattering128','scattering250','mfccGT','scatteringGT','mfccGTmult','scatteringGTmult','mfcc630desc'}
-metrics  = 2 = = {'raw','standarize','stdandmedian','stdandmedianbigv','lmnninst','lmnnmode','lmnninst16','lmnninst16traintest','lmnninst16traintest50','lmnnserieGT','lmnnmappingG','lmnnsumGT','lmnnpsumGT','lmnnsumdis','lmnnpsumdis' ,'lmnnclassmatching' ,'Mfcccpm2scat','lmnnsumnormdis','lmnnpsumnormdis'}
+features = = = {'mfcc','scattering25','scattering128','scattering250','mfccGT','scatteringGT','mfccGTmult','scatteringGTmult','mfcc27','mel'}
+metrics  = 2 = = {'raw','standarize','stdandmedian','stdandmedianbigv','lmnninst','lmnnmode','lmnninst16','lmnninst16traintest','lmnninst16traintest50','lmnnserieGT','lmnnmappingG','lmnnsumGT','lmnnpsumGT','lmnnsumdis','lmnnpsumdis' ,'lmnnclassmatching' ,'Mfcccpm2scat','lmnnsumnormdis','lmnnpsumnormdis','Mfcccpm2scattraintest','lmnnclassmatchinglow','lmnninst32traintest','lmnninst32traintest50','lmnninst496traintest','lmnninst496traintest50'}
 type = 2 = = {'instrument', 'mode','instrument16','instrument162','instrument16GT'}

@@ -3,15 +3,129 @@
 \begin{center} 
 \ 
  \setlength{\tabcolsep}{.16667em} 
-\begin{tabular}{lccc} 
-metrics & map & pat5 & time \\ 
+\begin{tabular}{lllccccccc} 
+features & metrics & type & map & map2 & mapafter & pat5 & pat52 & pat5after & time \\ 
 \hline 
-raw & 20.84 & 83.98 &   58.11 \\ 
-standarize & 22.29 & \textbf{\textcolor{red}{85.12}} &  100.13 \\ 
-lmnninst & \textbf{\textcolor{red}{22.88}} & 84.49 & \textbf{\textcolor{red}{2169.22}} \\ 
+mfcc & raw & instrument & 20.84 &   - &   - & 83.98 &   - &   - &     58.11 \\ 
+mfcc & raw & mode &  8.24 &   - &   - & 43.95 &   - &   - &     50.72 \\ 
+mfcc & raw & instrument16 & 22.66 &   - &   - & 85.93 &   - &   - &     77.10 \\ 
+mfcc & standarize & instrument & 22.29 &   - &   - & 85.12 &   - &   - &    100.13 \\ 
+mfcc & standarize & mode &  8.78 &   - &   - & 45.19 &   - &   - &     50.74 \\ 
+mfcc & standarize & instrument16 & 24.22 &   - &   - & 86.89 &   - &   - &     67.33 \\ 
+mfcc & stdandmedian & instrument & 20.84 &   - &   - & 83.98 &   - &   - &     53.11 \\ 
+mfcc & stdandmedian & mode &  8.24 &   - &   - & 43.95 &   - &   - &     51.50 \\ 
+mfcc & stdandmedian & instrument16 & 22.66 &   - &   - & 85.93 &   - &   - &     69.98 \\ 
+mfcc & stdandmedianbigv & instrument & 20.84 &   - &   - & 83.98 &   - &   - &    125.21 \\ 
+mfcc & stdandmedianbigv & mode &  8.24 &   - &   - & 43.95 &   - &   - &    320.17 \\ 
+mfcc & stdandmedianbigv & instrument16 & 22.66 &   - &   - & 85.93 &   - &   - &    320.05 \\ 
+mfcc & lmnninst & instrument & 23.90 &   - &   - & 84.68 &   - &   - &   1374.07 \\ 
+mfcc & lmnninst & mode &  9.13 &   - &   - & 45.37 &   - &   - &   1649.36 \\ 
+mfcc & lmnninst & instrument16 & 25.27 &   - &   - & 86.16 &   - &   - &   2184.00 \\ 
+mfcc & lmnnmode & instrument & 23.61 &   - &   - & 84.05 &   - &   - &   8338.40 \\ 
+mfcc & lmnnmode & mode &  9.61 &   - &   - & 46.38 &   - &   - &   5335.84 \\ 
+mfcc & lmnnmode & instrument16 & 26.25 &   - &   - & 85.86 &   - &   - &   8576.19 \\ 
+mfcc & lmnninst16 & instrument & 21.82 &   - &   - & 85.00 &   - &   - &    465.39 \\ 
+mfcc & lmnninst16 & mode &  8.63 &   - &   - & 44.90 &   - &   - &    633.30 \\ 
+mfcc & lmnninst16 & instrument16 & 24.73 &   - &   - & 87.09 &   - &   - &    308.21 \\ 
+mfcc & lmnninst16traintest & instrument16 & 24.41 &   - &   - & 75.17 &   - &   - &    369.41 \\ 
+mfcc & lmnninst16traintest & instrument162 & 24.54 & 23.24 &   - & 75.14 & 73.90 &   - &    330.16 \\ 
+mfcc & lmnninst16traintest50 & instrument162 & 24.02 & 22.74 &   - & 81.86 & 81.17 &   - &    367.13 \\ 
+mfcc & Mfcccpm2scat & instrument & 10.38 &   - &   - & 58.01 &   - &   - &    144.63 \\ 
+mfcc & Mfcccpm2scat & instrument162 & 10.38 & 13.35 &   - & 58.01 & 77.80 &   - &  28211.50 \\ 
+mfcc & lmnninst32traintest & instrument162 & 24.25 & 23.06 &   - & 75.08 & 73.51 &   - &    844.58 \\ 
+mfcc & lmnninst32traintest50 & instrument162 & 23.83 & 22.73 &   - & 81.52 & 81.00 &   - &    843.67 \\ 
+scattering25 & raw & instrument & 16.29 &   - &   - & 70.17 &   - &   - &   2204.80 \\ 
+scattering25 & raw & mode &  7.79 &   - &   - & 40.17 &   - &   - &   1843.27 \\ 
+scattering25 & raw & instrument16 & 18.07 &   - &   - & 72.79 &   - &   - &     84.33 \\ 
+scattering25 & standarize & instrument & 19.15 &   - &   - & 78.89 &   - &   - &    943.37 \\ 
+scattering25 & standarize & mode & 11.57 &   - &   - & 47.73 &   - &   - &   2367.01 \\ 
+scattering25 & standarize & instrument16 & 21.01 &   - &   - & 81.85 &   - &   - &     85.16 \\ 
+scattering128 & raw & instrument & 15.18 &   - &   - & 67.21 &   - &   - &    151.83 \\ 
+scattering128 & raw & mode &  6.66 &   - &   - & 37.38 &   - &   - &     90.65 \\ 
+scattering128 & raw & instrument16 & 16.79 &   - &   - & 70.47 &   - &   - &    139.98 \\ 
+scattering128 & standarize & instrument & 17.68 &   - &   - & 76.06 &   - &   - &     95.39 \\ 
+scattering128 & standarize & mode & 11.07 &   - &   - & 46.97 &   - &   - &     90.61 \\ 
+scattering128 & standarize & instrument16 & 19.48 &   - &   - & 79.67 &   - &   - &    135.98 \\ 
+scattering128 & stdandmedian & instrument & 27.15 &   - &   - & 90.87 &   - &   - &     96.33 \\ 
+scattering128 & stdandmedian & mode & 20.11 &   - &   - & 58.28 &   - &   - &     90.71 \\ 
+scattering128 & stdandmedian & instrument16 & 29.64 &   - &   - & 93.58 &   - &   - &    141.31 \\ 
+scattering128 & stdandmedianbigv & instrument & 25.34 &   - &   - & 88.18 &   - &   - &     55.22 \\ 
+scattering128 & stdandmedianbigv & mode & 16.42 &   - &   - & 54.03 &   - &   - &     52.36 \\ 
+scattering128 & stdandmedianbigv & instrument16 & 28.23 &   - &   - & 91.26 &   - &   - &     54.52 \\ 
+scattering250 & raw & instrument & 14.89 &   - &   - & 67.05 &   - &   - &     98.32 \\ 
+scattering250 & raw & mode &  6.46 &   - &   - & 37.07 &   - &   - &     96.35 \\ 
+scattering250 & raw & instrument16 & 16.49 &   - &   - & 70.40 &   - &   - &    148.96 \\ 
+scattering250 & standarize & instrument & 17.52 &   - &   - & 75.13 &   - &   - &     97.24 \\ 
+scattering250 & standarize & mode & 10.69 &   - &   - & 47.01 &   - &   - &     98.16 \\ 
+scattering250 & standarize & instrument16 & 19.31 &   - &   - & 78.98 &   - &   - &    149.85 \\ 
+scattering250 & stdandmedian & instrument & 28.07 &   - &   - & 90.94 &   - &   - &     97.94 \\ 
+scattering250 & stdandmedian & mode & 20.41 &   - &   - & 57.98 &   - &   - &     94.22 \\ 
+scattering250 & stdandmedian & instrument16 & 30.73 &   - &   - & 93.87 &   - &   - &    147.08 \\ 
+scattering250 & stdandmedianbigv & instrument & 27.66 &   - &   - & 89.77 &   - &   - &    534.57 \\ 
+scattering250 & stdandmedianbigv & mode & 18.59 &   - &   - & 55.44 &   - &   - &    554.22 \\ 
+scattering250 & stdandmedianbigv & instrument16 & 30.58 &   - &   - & 92.74 &   - &   - &    403.87 \\ 
+scattering250 & lmnninst & instrument & 56.88 &   - &   - & 99.92 &   - &   - &  23290.21 \\ 
+scattering250 & lmnninst & mode & 30.70 &   - &   - & 67.96 &   - &   - &  24340.46 \\ 
+scattering250 & lmnninst & instrument16 & 56.12 &   - &   - & 99.98 &   - &   - &  20643.03 \\ 
+scattering250 & lmnnmode & instrument & 41.70 &   - &   - & 99.37 &   - &   - &  69090.29 \\ 
+scattering250 & lmnnmode & mode & 44.42 &   - &   - & 88.08 &   - &   - &  68156.67 \\ 
+scattering250 & lmnnmode & instrument16 & 43.20 &   - &   - & 99.72 &   - &   - &  69505.22 \\ 
+scattering250 & lmnninst16 & instrument & 54.60 &   - &   - & 98.11 &   - &   - &  26837.24 \\ 
+scattering250 & lmnninst16 & mode & 28.92 &   - &   - & 67.61 &   - &   - &  28435.20 \\ 
+scattering250 & lmnninst16 & instrument16 & 60.07 &   - &   - & \textbf{\textcolor{red}{99.99}} &   - &   - &  25849.08 \\ 
+scattering250 & lmnninst16traintest & instrument162 & 60.70 & 31.00 &   - & 98.44 & 83.05 &   - &  16529.20 \\ 
+scattering250 & lmnninst16traintest50 & instrument162 & \textbf{\textcolor{red}{62.98}} & 30.70 &   - & 99.31 & 90.02 &   - &  10935.84 \\ 
+scattering250 & Mfcccpm2scat & instrument & 17.85 &   - &   - & 79.25 &   - &   - &    120.43 \\ 
+scattering250 & Mfcccpm2scat & instrument162 & 28.43 & \textbf{\textcolor{red}{51.35}} &   - & 92.85 & \textbf{\textcolor{red}{99.85}} &   - &  14544.05 \\ 
+mfccGT & lmnnmappingG & instrument16GT & 50.74 &   - & 53.82 & 55.66 &   - & 59.24 &      1.62 \\ 
+mfccGT & lmnnsumGT & instrument16GT & 50.74 &   - & 55.02 & 55.66 &   - & 60.99 &     68.74 \\ 
+mfccGT & lmnnpsumGT & instrument16GT & 50.74 &   - & 55.17 & 55.66 &   - & 61.48 &     65.98 \\ 
+mfccGT & lmnnsumdis & instrument16GT & 50.74 &   - & 54.24 & 55.66 &   - & 60.04 &     41.55 \\ 
+mfccGT & lmnnpsumdis & instrument16GT & 50.74 &   - & 54.35 & 55.66 &   - & 60.51 &     33.46 \\ 
+mfccGT & lmnnclassmatching & instrument16GT & 50.74 &   - & \textbf{\textcolor{red}{55.34}} & 55.66 &   - & 61.77 &     15.50 \\ 
+mfccGT & lmnnsumnormdis & instrument16GT & 50.74 &   - & 54.31 & 55.66 &   - & 60.29 &     54.08 \\ 
+mfccGT & lmnnpsumnormdis & instrument16GT & 50.74 &   - & 54.39 & 55.66 &   - & 60.09 &     43.39 \\ 
+scatteringGT & lmnnmappingG & instrument16GT & 38.28 &   - & 41.63 & 41.59 &   - & 53.82 &     31.98 \\ 
+scatteringGT & lmnnsumGT & instrument16GT & 40.17 &   - & 49.63 & 44.01 &   - & 61.85 &   2316.59 \\ 
+scatteringGT & lmnnpsumGT & instrument16GT & 37.73 &   - & 45.92 & 40.63 &   - & 54.14 &    218.59 \\ 
+scatteringGT & lmnnsumdis & instrument16GT & 40.17 &   - & 51.46 & 44.01 &   - & 65.57 &   2266.57 \\ 
+scatteringGT & lmnnpsumdis & instrument16GT & 40.17 &   - & 52.61 & 44.01 &   - & 66.89 &   2064.16 \\ 
+scatteringGT & lmnnclassmatching & instrument16GT & 40.17 &   - & 49.41 & 44.01 &   - & 60.75 &     21.01 \\ 
+scatteringGT & lmnnsumnormdis & instrument16GT & 40.17 &   - & 54.03 & 44.01 &   - & 67.33 &   2150.03 \\ 
+scatteringGT & lmnnpsumnormdis & instrument16GT & 40.17 &   - & 54.30 & 44.01 &   - & 67.63 &   2365.45 \\ 
+mfccGTmult & lmnnmappingG & instrument16GT & 34.96 &   - & 35.38 & 81.28 &   - & 81.68 &    850.59 \\ 
+mfccGTmult & lmnnsumGT & instrument16GT & 34.96 &   - & 36.87 & 81.28 &   - & 82.19 &   3860.39 \\ 
+mfccGTmult & lmnnpsumGT & instrument16GT & 34.96 &   - & 36.84 & 81.28 &   - & 82.19 &   4377.79 \\ 
+mfccGTmult & lmnnsumdis & instrument16GT & 34.96 &   - & 36.11 & 81.28 &   - & 82.23 &   4332.60 \\ 
+mfccGTmult & lmnnpsumdis & instrument16GT & 34.96 &   - & 36.10 & 81.28 &   - & 82.25 &   4414.62 \\ 
+mfccGTmult & lmnnclassmatching & instrument16GT & 34.96 &   - & 35.77 & 81.28 &   - & 82.00 &    572.15 \\ 
+mfccGTmult & lmnnsumnormdis & instrument16GT & 34.96 &   - & 36.16 & 81.28 &   - & 82.24 &   3966.36 \\ 
+mfccGTmult & lmnnpsumnormdis & instrument16GT & 34.96 &   - & 36.15 & 81.28 &   - & \textbf{\textcolor{red}{82.25}} &   3439.56 \\ 
+mfccGTmult & lmnnclassmatchinglow & instrument16GT & 37.73 &   - & 38.75 & 69.85 &   - & 70.06 &     29.38 \\ 
+scatteringGTmult & lmnnmappingG & instrument16GT & 30.00 &   - & 30.19 & 52.39 &   - & 54.38 &   1626.58 \\ 
+scatteringGTmult & lmnnsumGT & instrument16GT & 28.90 &   - & 28.49 & 49.32 &   - & 48.89 &  11296.23 \\ 
+scatteringGTmult & lmnnpsumGT & instrument16GT & 28.90 &   - & 28.48 & 49.32 &   - & 48.87 &  12153.01 \\ 
+scatteringGTmult & lmnnsumdis & instrument16GT & 32.22 &   - & 32.70 & 57.42 &   - & 63.48 &  52099.40 \\ 
+scatteringGTmult & lmnnpsumdis & instrument16GT & 32.22 &   - & 32.70 & 57.42 &   - & 63.51 &  74054.43 \\ 
+scatteringGTmult & lmnnclassmatching & instrument16GT & 32.22 &   - & 32.50 & 57.42 &   - & 64.62 & \textbf{\textcolor{red}{147254.13}} \\ 
+scatteringGTmult & lmnnsumnormdis & instrument16GT & 32.22 &   - & 32.70 & 57.42 &   - & 63.42 &  89380.52 \\ 
+scatteringGTmult & lmnnpsumnormdis & instrument16GT & 32.22 &   - & 32.70 & 57.42 &   - & 63.49 &  88859.28 \\ 
+scatteringGTmult & lmnnclassmatchinglow & instrument16GT & 30.99 &   - & 50.43 & 47.17 &   - & 71.07 &    256.79 \\ 
+mfcc27 & raw & instrument & 17.87 &   - &   - & 82.85 &   - &   - &     69.35 \\ 
+mfcc27 & raw & mode &  8.85 &   - &   - & 43.96 &   - &   - &     61.21 \\ 
+mfcc27 & raw & instrument16 & 19.72 &   - &   - & 85.24 &   - &   - &     67.25 \\ 
+mfcc27 & standarize & instrument & 17.77 &   - &   - & 82.94 &   - &   - &     57.25 \\ 
+mfcc27 & standarize & mode &  7.52 &   - &   - & 41.56 &   - &   - &     58.90 \\ 
+mfcc27 & standarize & instrument16 & 19.45 &   - &   - & 85.40 &   - &   - &     60.75 \\ 
+mel & raw & instrument & 14.72 &   - &   - & 60.26 &   - &   - &     54.33 \\ 
+mel & raw & mode &  5.74 &   - &   - & 32.90 &   - &   - &     52.93 \\ 
+mel & raw & instrument16 & 16.48 &   - &   - & 62.90 &   - &   - &     52.68 \\ 
+mel & standarize & instrument & 13.68 &   - &   - & 57.72 &   - &   - &     51.63 \\ 
+mel & standarize & mode &  5.34 &   - &   - & 32.20 &   - &   - &     51.37 \\ 
+mel & standarize & instrument16 & 15.44 &   - &   - & 60.78 &   - &   - &     53.85 \\ 
 \end{tabular} 
 \end{center} 
-\caption{features: mfcc, type: instrument} 
-\label{me} 
+\caption{all} 
+\label{you} 
 \end{table} 
  

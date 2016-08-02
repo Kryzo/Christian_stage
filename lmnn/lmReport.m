@@ -9,5 +9,6 @@ function config = lmReport(config)
 if nargin==0, lmnn('report', 'r'); return; end      
                                                     
 
-config = expExpose(config, 't', 'mask',{[1] [1 2 5] [1]}, 'save', 'mtable','label','me');
-%send_mail_message('gonantesfr','resby6','by inst',fullfile('report','figures','mtable.pdf'));
+config = expExpose(config, 't', 'mask',{[0] [0] [0]}, 'save', 'mtable','label','you');
+ send_mail_message('gonantesfr','0 0 0','by inst',fullfile('report','tables','mtable.tex'));
+send_mail_message('gonantesfr','0 0 0','by inst',fullfile('report','figures','mtable.pdf'));

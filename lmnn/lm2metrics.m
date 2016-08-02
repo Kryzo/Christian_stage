@@ -11,14 +11,14 @@ function [config, store, obs] = lm2metrics(config, setting, data)
 % Date: 01-Jun-2016
 
 % Set behavior for debug mode
-if nargin==0, lmnn('do', 2,'parallel',0,'mask',{[1] [7] 3}); return; else store=[]; obs=[]; end
+if nargin==0, lmnn('do', 2,'parallel',0,'mask',{[7] [21] [5]}); return; else store=[]; obs=[]; end
 if(isempty(data))
    
     send_mail_message('gonantesfr','notyet','by inst',fullfile('report','figures','mtable.pdf'));
 else
 
 ccall=data.features;
-ccall(:,all(~ccall,1))=[];
+%ccall(:,all(~ccall,1))=[];
 labelinst=data.labelinst;
 labeltype=data.labeltype;
 load labelinst2
@@ -48,7 +48,7 @@ switch setting.metrics
         else
              ccafter=featureNormalize(ccall);
         end
-        [Linst,Det]=lmnnCG(ccafter',labelinst',5,'maxiter',1000);
+        [Linst,Det]=lmnnCG(ccall',labelinst',5,'maxiter',1000);
         ccafter=(Linst*ccafter')';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%-6-%%%%%%%%%%%%%%%%%%%%%%%%%%%%  store.Linst=Linst;
         
@@ -472,6 +472,165 @@ switch setting.metrics
             ccafter2=(Linst*ccafter')';
             dx2=dx2+repmat(clusv,size(ccafter,1),size(ccafter,1)).*featureNormalize(squareform(pdist(ccafter2)));
         end   
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%-20-%%%%%%%%%%%%%%%%%%%%%%%%%%%%           
+   case 'Mfcccpm2scattraintest'
+        
+        if strcmp(setting.features(1:4),'scat')
+            ccafter=StdAndMedian(ccall,13);
+        else
+            % Append deltas and double-deltas onto the cepstral vectors
+            del = deltas(ccall');
+            % Double deltas are deltas applied twice with a shorter window
+            ddel = deltas(deltas(ccall',5),5);
+            % Composite, 39-element feature vector, just like we use for speech recognition
+            ccafter = [ccall';del;ddel]';
+        
+        m=0;
+         for k=1:36
+             for n=(k+1):36
+                 m=m+1;
+                 ccafter(:,(36+m))=ccafter(:,k).*ccafter(:,n);
+             end
+         end 
+        end
+         X=ccafter';
+        [d,n] = size(X);
+        P       = randperm(n);
+        
+        Xtrain  = X(:,P(1:floor(0.8 * n)))';
+        Ytrain  = labelinst2(P(1:floor(0.8*n)));
+        Xtest   = X(:,P((1+floor(0.8*n)):end))';
+        Ytest   = labelinst2(P((1+floor(0.8*n)):end));
+        [Linst,Det]=lmnnCG(Xtrain',Ytrain',5,'maxiter',1000);
+        ccafter=(Linst*Xtest')';
+        store.Linst16traintest=Linst;
+        store.xtest50=Xtest;
+        store.ytest50=Ytest
+        store.xtrain50=Xtrain;
+        store.ytrain50=Ytrain
+        labelinst2=Ytest; 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-21-%%%%%%%%%%%%%%%%%%%%%%%%
+        case  'lmnnclassmatchinglow'
+        load groupSol
+          %%%%%%%%%%%%%%%%%%%ù
+        cluster=a.clusters;
+        cluster=cluster([1:27,29:33],:);
+        b=0;;
+        c=0;
+        
+        for k=1:78
+           
+            rep=sum(ccall(:,size(ccall,2))==k);
+            for m=1:5
+                b=b+1;
+                c=c+1;
+                
+                ccaftertemp(b,:)=ccall(c,:);
+                cluster2(:,b)=cluster(:,k);
+            end
+            for m=5:(rep-1)
+                c=c+1;
+            end
+        end
+        %%%%%%%%%%%%%%%%%%%%%%%%%%
+        labelinstGT=cluster2;
+      ccall=ccaftertemp;
+         
+        ccafter=ccall(:,1:(size(ccall,2)-1));
+        if strcmp(setting.features(1:4),'scat')
+            ccafter=StdAndMedian(ccall,2);     
+        end
+        maxv=0;
+        kfinal=0;
+        for kclus=1:32
+            clusv=0;
+          
+                for kclus2=1:32
+                    if(kclus~=kclus2)
+                        [accuracyv, classMatching] = accuracy(labelinstGT(kclus,:), labelinstGT(kclus2,:));
+                        clusv=clusv+accuracyv;
+                    end
+                end
+            
+            if (clusv>maxv)
+                kfinal=kclus;
+                maxv=clusv;
+            end
+            
+        end
+        for kclus=1:32
+         [accuracyv, classMatching] = accuracy(labelinstGT(20,:), labelinstGT(kclus,:));
+        
+         labeltemp=labelinstGT(kclus,:);
+         labeltemp2=labelinstGT(kclus,:);
+         for kcm=1:size(classMatching,1)
+             n=classMatching(kcm,:)
+              vcm=find(n);
+             if(~isempty(vcm))
+                
+              labeltemp(labeltemp2==kcm)=vcm;
+             end
+         end
+        labelinstGT2(kclus,:)=labeltemp;
+       
+        end
+         M = mode(labelinstGT2);
+         [label2, res]=removelessthan2(M,ccafter);
+            [Linst,Det]=lmnnCG(res',label2',5,'maxiter',1000);
+            ccafter2=(Linst*ccafter')';
+        
+         
+            
+            
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%-22-%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+    case 'lmnninst32traintest'
+        ccafter=ccall;
+        if strcmp(setting.features(1:4),'scat')
+            ccafter=StdAndMedian(ccall,83);
+        end
+        X=ccafter';
+        [d,n] = size(X);
+        P       = randperm(n);
+        
+        Xtrain  = X(:,P(1:floor(0.8 * n)))';
+        Ytrain  = labelinst(P(1:floor(0.8*n)));
+        Xtest   = X(:,P((1+floor(0.8*n)):end))';
+        Ytest   = labelinst(P((1+floor(0.8*n)):end));
+        [Linst,Det]=lmnnCG(Xtrain',Ytrain',5,'maxiter',1000);
+        ccafter=(Linst*Xtest')';
+        store.Linst16traintest=Linst;
+        store.xtest50=Xtest;
+        store.ytest50=Ytest
+        store.xtrain50=Xtrain;
+        store.ytrain50=Ytrain
+        labelinst2=Ytest;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%-23-%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+    case 'lmnninst32traintest50'
+        ccafter=ccall;
+        if strcmp(setting.features(1:4),'scat')
+            ccafter=StdAndMedian(ccall,83);
+        end
+        X=ccafter';
+        [d,n] = size(X);
+        P       = randperm(n);
+        
+        Xtrain  = X(:,P(1:floor(0.5 * n)))';
+        Ytrain  = labelinst(P(1:floor(0.5*n)));
+        Xtest   = X(:,P((1+floor(0.5*n)):end))';
+        Ytest   = labelinst(P((1+floor(0.5*n)):end));
+        [Linst,Det]=lmnnCG(Xtrain',Ytrain',5,'maxiter',1000);
+        ccafter=(Linst*Xtest')';
+        store.Linst16traintest50=Linst;
+        store.xtest50=Xtest;
+        store.ytest50=Ytest
+        store.xtrain50=Xtrain;
+        store.ytrain50=Ytrain
+        labelinst2=Ytest;       
+            
+             
+            
+            
+            
 end
 
 dx=squareform(pdist(ccafter));
@@ -500,6 +659,8 @@ switch setting.type
         obs.pat5=resmode.precisionAt5*100
         obs.map2=resmode2.meanAveragePrecision*100
         obs.pat52=resmode2.precisionAt5*100
+         lmReport
+          lmReport
         %%%%%%%%%%%%%%%%%%%%%%%%%%%-5-%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     case 'instrument16GT'
         map=0;

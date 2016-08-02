@@ -1,0 +1,5 @@
+lmReport;
+lmnn('do', 2,'parallel',1,'mask',{[1] [5] 1});
+ lmReport;
+ 
+ send_mail_message('gonantesfr','resby6','by inst',fullfile('report','tables','mtable.tex'));
